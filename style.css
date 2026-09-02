@@ -156,7 +156,7 @@ a:hover { text-decoration: underline; }
 /* ---------- info grid ---------- */
 .info-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-top: 2rem;
 }
@@ -195,6 +195,9 @@ a:hover { text-decoration: underline; }
 .site-footer p:last-child { margin-bottom: 0; }
 
 /* ---------- responsive ---------- */
+@media (max-width: 768px) {
+  .info-grid { grid-template-columns: 1fr; }
+}
 @media (max-width: 600px) {
   .hero { padding: 2.5rem 1rem 2rem; }
   .hero h1 { font-size: 1.35rem; }
