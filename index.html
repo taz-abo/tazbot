@@ -10,7 +10,7 @@
 
   <header class="hero">
     <div class="hero-inner">
-      <img class="hero-logo" src="taz-logo.webp" alt="taz Logo">
+      <span class="hero-logo">taz</span>
       <h1>Hilfs-Assistent</h1>
       <p class="hero-sub">Stelle deine Frage &mdash; der Chatbot antwortet dir auf Basis der
         offiziellen <a href="https://taz.de/verlag/fragen-und-hilfe/!v=673b67c7-bf6c-44de-9d7d-b86c5a620288/"
@@ -61,11 +61,6 @@
       <a href="https://taz.de/verlag/fragen-und-hilfe/" target="_blank" rel="noopener">taz-Hilfeseite</a>.</p>
   </footer>
 
-  <!--
-    data-backend: URL des FastAPI-Servers (ohne Slash am Ende).
-    Für lokale Nutzung:  http://localhost:8000
-    Für Produktivbetrieb: https://dein-server.example.com:8000
-  -->
-  <script src="widget.js" data-backend="http://localhost:8000"></script>
+  <script src="widget.js" data-backend="https://taz-backend.okur-230.workers.dev"></script>
 </body>
 </html>
