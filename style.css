@@ -199,7 +199,13 @@ a:hover { text-decoration: underline; }
   transition: transform .2s, background .15s;
 }
 #taz-widget-toggle:hover { background: var(--taz-red-dark); transform: scale(1.06); }
-#taz-widget-toggle svg { width: 26px; height: 26px; }
+#taz-widget-toggle #taz-widget-logo {
+  width: 34px;
+  height: 13px;
+  display: block;
+  pointer-events: none;
+  transition: opacity .2s;
+}
 
 #taz-widget-panel {
   position: fixed;
@@ -227,14 +233,20 @@ a:hover { text-decoration: underline; }
 #taz-widget-panel .w-header {
   background: var(--taz-red);
   color: #fff;
-  padding: .75rem 1rem;
-  font-weight: 700;
-  font-size: .95rem;
+  padding: .6rem 1rem;
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: .6rem;
 }
-#taz-widget-panel .w-header span { font-size: .75rem; font-weight: 400; opacity: .8; }
+#taz-widget-panel .w-header-logo {
+  height: 16px;
+  width: auto;
+  display: block;
+}
+#taz-widget-panel .w-header-title {
+  font-weight: 700;
+  font-size: .95rem;
+}
 #taz-widget-panel .w-messages {
   flex: 1;
   overflow-y: auto;

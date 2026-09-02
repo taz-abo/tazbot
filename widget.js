@@ -10,9 +10,11 @@
   const scriptEl = document.currentScript;
   const BACKEND  = (scriptEl?.getAttribute("data-backend") || "http://localhost:8000").replace(/\/+$/, "");
 
+  // Logo wird relativ zum Skript-Ort aufgelöst, damit das Widget auch auf
+  // eingebetteten (fremden) Seiten das korrekte Logo findet.
+  const LOGO_SRC = (scriptEl && scriptEl.src ? scriptEl.src.split("/").slice(0, -1).join("/") : ".") + "/taz-logo-white.svg";
+
   /* ---- SVGs ---- */
-  const SVG_CHAT   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
-  const SVG_CLOSE  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
   const SVG_SEND   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
 
   /* ---- helpers ---- */
@@ -88,14 +90,19 @@
   /* ---- build DOM ---- */
   function init() {
     /* Toggle button */
-    const toggle = el("button", { id: "taz-widget-toggle", html: SVG_CHAT, "aria-label": "Chat öffnen" });
+    const toggleImg = el("img", { src: LOGO_SRC, alt: "taz", id: "taz-widget-logo" });
+    const toggle = el("button", { id: "taz-widget-toggle", "aria-label": "Chat öffnen" });
+    toggle.appendChild(toggleImg);
     document.body.appendChild(toggle);
 
     /* Panel */
     const panel = el("div", { id: "taz-widget-panel" });
 
     const header = el("div", { class: "w-header" });
-    header.innerHTML = "taz Assistent <span>FRAGEN &amp; HILFE</span>";
+    const headerLogo = el("img", { src: LOGO_SRC, alt: "taz", class: "w-header-logo" });
+    const headerText = el("span", { class: "w-header-title" }, "Assistent");
+    header.appendChild(headerLogo);
+    header.appendChild(headerText);
     panel.appendChild(header);
 
     const messages = el("div", { class: "w-messages" });
@@ -116,7 +123,7 @@
     toggle.addEventListener("click", () => {
       open = !open;
       panel.classList.toggle("open", open);
-      toggle.innerHTML = open ? SVG_CLOSE : SVG_CHAT;
+      toggleImg.style.opacity = open ? "0.6" : "1";
       toggle.setAttribute("aria-label", open ? "Chat schließen" : "Chat öffnen");
       if (open) input.focus();
     });
