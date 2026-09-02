@@ -39,14 +39,15 @@
     <section class="info-grid">
       <div class="info-card">
         <h3>Wie funktioniert es?</h3>
-        <p>Deine Frage wird mit den FAQ-Inhalten der taz abgeglichen. Die drei
-          relevantesten Antworten werden als Kontext an ein lokales Sprachmodell
-          gesendet &mdash; ohne Cloud-Dienste.</p>
+        <p>Deine Frage wird mit den FAQ-Inhalten der taz abgeglichen. Die
+          relevantesten Antworten werden als Kontext an ein Sprachmodell
+          gesendet &mdash; direkt auf der Cloudflare-Plattform.</p>
       </div>
       <div class="info-card">
         <h3>Datenschutz</h3>
-        <p>Alle Daten bleiben auf dem Server. Es werden keine Informationen an
-          Dritte weitergegeben. Das Sprachmodell (llama3.1) läuft lokal via Ollama.</p>
+        <p>Das Backend läuft auf Cloudflare Workers, die taz-Hilfeseite wird gechunked
+          und über die Cloudflare-Infrastruktur beantwortet. Keine Daten von dir
+          werden an Dritte weitergegeben.</p>
       </div>
       <div class="info-card">
         <h3>Open Source</h3>

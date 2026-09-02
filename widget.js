@@ -124,6 +124,18 @@
     function doSend() { send(input.value, messages, input, sendBtn); }
     sendBtn.addEventListener("click", doSend);
     input.addEventListener("keydown", e => { if (e.key === "Enter") doSend(); });
+
+    /* Central hero chat form (if present on the page) */
+    const heroForm    = document.getElementById("chat-form");
+    const heroMessages = document.getElementById("chat-messages");
+    const heroInput   = document.getElementById("chat-input");
+    const heroSendBtn = document.getElementById("send-btn");
+    if (heroForm && heroMessages && heroInput) {
+      heroForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        send(heroInput.value, heroMessages, heroInput, heroSendBtn);
+      });
+    }
   }
 
   if (document.readyState === "loading") {
