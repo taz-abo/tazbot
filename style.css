@@ -42,6 +42,35 @@ a:hover { text-decoration: underline; }
   height: auto;
 }
 .hero h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: .5rem; }
+.hero-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  flex-wrap: wrap;
+}
+.hero-title-row h1 { margin-bottom: 0; }
+.beta-badge {
+  display: inline-block;
+  background: #fff;
+  color: #E30613;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  padding: .22rem .6rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+.hero-beta-note {
+  margin: .7rem auto 0;
+  max-width: 46rem;
+  font-size: .92rem;
+  opacity: .95;
+  background: rgba(0,0,0,.16);
+  border: 1px solid rgba(255,255,255,.35);
+  padding: .45rem .9rem;
+  border-radius: .5rem;
+}
 .hero-sub { font-size: 1rem; opacity: .92; }
 .hero-sub a { color: #fff; text-decoration: underline; }
 .hero-byline {
@@ -193,6 +222,10 @@ a:hover { text-decoration: underline; }
 }
 .site-footer p { margin-bottom: .35rem; }
 .site-footer p:last-child { margin-bottom: 0; }
+.footer-beta {
+  font-weight: 700;
+  color: #E30613;
+}
 
 /* ---------- responsive ---------- */
 @media (max-width: 768px) {
@@ -273,6 +306,18 @@ a:hover { text-decoration: underline; }
 #taz-widget-panel .w-header-title {
   font-weight: 700;
   font-size: .95rem;
+}
+#taz-widget-panel .w-beta {
+  margin-left: auto;
+  background: #fff;
+  color: #E30613;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  padding: .14rem .45rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  line-height: 1.2;
 }
 #taz-widget-panel .w-messages {
   flex: 1;
