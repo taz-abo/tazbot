@@ -15,6 +15,7 @@
       <p class="hero-sub">Stelle deine Frage &mdash; der Chatbot antwortet dir auf Basis der
         offiziellen <a href="https://taz.de/verlag/fragen-und-hilfe/!v=673b67c7-bf6c-44de-9d7d-b86c5a620288/"
         target="_blank" rel="noopener">taz-Hilfeseite</a>.</p>
+      <p class="hero-byline">Konzept &amp; Umsetzung: <strong>Levi Okur</strong> &mdash; <a href="mailto:okur@taz.de">okur@taz.de</a></p>
     </div>
   </header>
 
@@ -39,20 +40,51 @@
     <section class="info-grid">
       <div class="info-card">
         <h3>Wie funktioniert es?</h3>
-        <p>Deine Frage wird mit den FAQ-Inhalten der taz abgeglichen. Die
-          relevantesten Antworten werden als Kontext an ein Sprachmodell
-          gesendet &mdash; direkt auf der Cloudflare-Plattform.</p>
+        <p>Der Chatbot arbeitet nach dem <strong>RAG-Prinzip</strong> (Retrieval-Augmented
+          Generation). Deine Frage wird in drei Schritten beantwortet:</p>
+        <ul>
+          <li><strong>Einbetten</strong>: Die Frage wird mit dem Embedding-Modell
+            <code>bge-m3</code> in einen Zahlenvektor umgewandelt.</li>
+          <li><strong>Suchen</strong>: Der Vektor wird gegen eine Vektordatenbank
+            (Cloudflare Vectorize) abgeglichen, die die gechunkten FAQ-Inhalte der
+            taz-Hilfeseite enthält. Ein <strong>Reranker</strong> (<code>bge-reranker</code>)
+            sortiert die relevantesten Passagen auf Rang.</li>
+          <li><strong>Generieren</strong>: Das Sprachmodell <code>Llama 3.2</code>
+            (3B-Instruct) formuliert aus diesem Kontext die Antwort &mdash; ohne
+            etwas zu erfinden.</li>
+        </ul>
+        <p>So liefert der Bot stets belegte Antworten mit Quellenangabe.</p>
       </div>
       <div class="info-card">
         <h3>Datenschutz</h3>
-        <p>Das Backend läuft auf Cloudflare Workers, die taz-Hilfeseite wird gechunked
-          und über die Cloudflare-Infrastruktur beantwortet. Keine Daten von dir
-          werden an Dritte weitergegeben.</p>
+        <p>Das gesamte Backend läuft auf der <strong>Cloudflare-Plattform</strong>
+          (Workers, Workers AI, Vectorize, KV). Die taz-Hilfeseite wird einmalig
+          „gechunked&ldquo; und als Vektoren gespeichert.</p>
+        <ul>
+          <li>Deine Frage wird nur an die <strong>Cloudflare-Infrastruktur</strong>
+            gesendet &mdash; es ist kein weiterer Drittanbieter beteiligt.</li>
+          <li>Fragen und Antworten werden <strong>nicht protokolliert oder gespeichert.</strong></li>
+          <li>Es werden <strong>keine Beispiele</strong> an Dritte (z.&nbsp;B. Trainingsdaten-Plattformen) weitergegeben.</li>
+        </ul>
+        <p>Alle Modelle laufen direkt in der Cloudflare-Kante.</p>
       </div>
       <div class="info-card">
         <h3>Open Source</h3>
-        <p>Der gesamte Stack &mdash; Scraping, Embeddings, Vektordatenbank und
-          Chat-Oberfläche &mdash; ist frei zugänglich und selbst hostbar.</p>
+        <p>Der komplette Stack ist <strong>frei zugänglich und selbst hostbar</strong>:</p>
+        <ul>
+          <li><strong>Scraping &amp; Chunking</strong> &mdash; TypeScript, taz.de als Quelle</li>
+          <li><strong>Embeddings</strong> &mdash; <code>BAAI bge-m3</code> (Open Source)</li>
+          <li><strong>Vektordatenbank</strong> &mdash; Cloudflare Vectorize</li>
+          <li><strong>LLM</strong> &mdash; Meta <code>Llama 3.2 3B</code> (Open Weights)</li>
+          <li><strong>Reranker</strong> &mdash; <code>BAAI bge-reranker-base</code></li>
+          <li><strong>Frontend</strong> &mdash; statisches HTML/JS, gehostet auf GitHub Pages</li>
+        </ul>
+        <p>Alle Komponenten sind offene Standards &mdash; nichts Blackbox:</p>
+        <ul>
+          <li>Zero-Trust-Deployment auf Cloudflare</li>
+          <li>Standard-API: Worker + AI + Vectorize</li>
+          <li>Exportierbare &amp; auditierbare Prompt-Kette</li>
+        </ul>
       </div>
     </section>
   </main>
@@ -60,6 +92,8 @@
   <footer class="site-footer">
     <p>Nicht offiziell. Ein Open-Source-Projekt auf Basis der
       <a href="https://taz.de/verlag/fragen-und-hilfe/" target="_blank" rel="noopener">taz-Hilfeseite</a>.</p>
+    <p>Konzept &amp; Umsetzung: <strong>Levi Okur</strong> (<a href="mailto:okur@taz.de">okur@taz.de</a>) &middot;
+      <a href="https://github.com/taz-abo/taz-hilfe-assistent" target="_blank" rel="noopener">Quellcode auf GitHub</a></p>
   </footer>
 
   <script src="widget.js" data-backend="https://taz-backend.okur-230.workers.dev"></script>
