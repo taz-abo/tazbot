@@ -61,15 +61,16 @@ a:hover { text-decoration: underline; }
   border-radius: 999px;
   text-transform: uppercase;
 }
-.hero-beta-note {
+.beta-note {
   margin: .7rem auto 0;
   max-width: 46rem;
-  font-size: .92rem;
-  opacity: .95;
-  background: rgba(0,0,0,.16);
-  border: 1px solid rgba(255,255,255,.35);
+  font-size: .85rem;
+  color: var(--taz-red-dark, #b6050f);
+  background: var(--taz-red-light, #fde7e9);
+  border: 1px solid rgba(227,6,19,.35);
   padding: .45rem .9rem;
   border-radius: .5rem;
+  text-align: left;
 }
 .hero-sub { font-size: 1rem; opacity: .92; }
 .hero-sub a { color: #fff; text-decoration: underline; }
