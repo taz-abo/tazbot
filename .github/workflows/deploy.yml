@@ -1,0 +1,69 @@
+name: Bump version & deploy
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - ".github/workflows/*"
+      - ".version"
+
+permissions:
+  contents: write
+
+jobs:
+  bump-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo (full history)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump version
+        id: bump
+        run: |
+          current=$(cat .version)
+          prefix="${current%-*}"      # e.g. 20260902
+          n="${current##*-}"          # e.g. 1
+          today=$(date -u +%Y%m%d)
+          if [ "$prefix" != "$today" ]; then
+            next="${today}-1"
+          else
+            next="${prefix}-$((n + 1))"
+          fi
+          echo "old=$current"
+          echo "new=$next"
+          echo "$next" > .version
+          echo "version=$next" >> "$GITHUB_OUTPUT"
+
+      - name: Rewrite CSS/JS references with new version
+        run: |
+          v="${{ steps.bump.outputs.version }}"
+          sed -i "s/style\.css?v=[0-9]*-[0-9]*/style.css?v=${v}/" index.html
+          sed -i "s/widget\.js?v=[0-9]*-[0-9]*/widget.js?v=${v}/" index.html
+          echo "--- index.html refs ---"
+          grep -o 'style.css?v=[^"]*\|widget.js?v=[^"]*' index.html
+
+      - name: Commit version bump on main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .version index.html
+          git commit -m "chore: bump cache-bust version to ${{ steps.bump.outputs.version }} [skip ci]" || echo "nothing to commit"
+          git push origin main
+
+      - name: Stage website files
+        run: |
+          mkdir -p _site
+          cp index.html style.css widget.js taz-logo-white.svg taz-logo.webp README.md _site/
+          ls -la _site
+
+      - name: Deploy website to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
+          force_orphan: false
+          enable_jekyll: false
