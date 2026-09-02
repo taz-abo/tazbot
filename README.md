@@ -37,10 +37,57 @@ In `index.html` die `data-backend`-Attribute im `<script>`-Tag anpassen:
 ## Struktur
 
 ```
-index.html   Demo-Seite mit Chat-Panel und Info-Karten
-widget.js    Einbettbares Floating Chat-Widget (Bottom-Right)
-style.css    Styling für Seite und Widget
+index.html                    Demo-Seite mit Chat-Panel und Info-Karten
+widget.js                     Einbettbares Floating Chat-Widget (Bottom-Right)
+style.css                     Styling für Seite und Widget
+taz-logo-white.svg            Weißes taz-Logo (SVG) für Hero + Widget
+taz-logo.webp                 Raster-Logo
+.version                      Aktuelle Cache-Bust-Version (wird vom Workflow gepflegt)
+.github/workflows/deploy.yml  Auto-Deploy: Version bumpen + nach GitHub Pages deployen
 ```
+
+## GitHub Pages hosten
+
+Die statische Seite wird auf dem Branch **`gh-pages`** ausgeliefert. Quell-Branch ist
+**`main`** — aus dem deployt ein GitHub-Actions-Workflow automatisch.
+
+### Manuell deployen (ohne Workflow)
+
+```bash
+git checkout main
+# Änderungen committen
+git push origin main
+
+# Synchronisieren auf gh-pages
+git checkout gh-pages
+git pull --ff-only origin gh-pages
+git checkout main -- index.html style.css widget.js taz-logo-white.svg taz-logo.webp README.md
+git commit -m "Sync: <beschreibung>"
+git push origin gh-pages
+```
+
+### Automatisches Deploy (empfohlen)
+
+Push auf `main` mit echten Frontend-Änderungen triggert
+`.github/workflows/deploy.yml`:
+
+1. **Version automatisch erhöhen** — liest `.version`, zählt hoch
+   (`YYYYMMDD-N`; bei neuem Datum wieder bei `-1`), schreibt die neue Nummer in
+   `.version` und ersetzt `style.css?v=…`/`widget.js?v=…` in `index.html`
+   (Cache-Busting)
+2. **Commit + Push auf `main`** mit `[skip ci]` (verhindert Endlosschleife)
+3. **Deploy auf `gh-pages`** über `peaceiris/actions-gh-pages` (nur die 6
+   Web-Dateien + `.nojekyll`)
+
+→ Der `gh-pages`-Push triggert den automatischen GitHub-Pages-Build; die Seite ist
+danach live. **Kein manueller Versions-Bump oder Branch-Sync mehr nötig.**
+
+> **Hinweis:** Änderungen direkt an `.github/workflows/*` und `.version` lösen
+> bewusst keinen Deploy aus (`paths-ignore`). Einen einmaligen manuellen Lauf
+> startest du über **Actions → “Bump version & deploy” → Run workflow**.
+
+> **Tipp:** GitHub Pages liefert CSS/JS mit `Cache-Control: max-age=600` (10 Min)
+> aus. Bei Bedarf siehst du Änderungen sofort mit Hard-Reload (Cmd+Shift+R).
 
 ## Backend (Cloudflare Worker)
 

@@ -101,8 +101,10 @@
     const header = el("div", { class: "w-header" });
     const headerLogo = el("img", { src: LOGO_SRC, alt: "taz", class: "w-header-logo" });
     const headerText = el("span", { class: "w-header-title" }, "Assistent");
+    const headerBeta = el("span", { class: "w-beta" }, "BETA");
     header.appendChild(headerLogo);
     header.appendChild(headerText);
+    header.appendChild(headerBeta);
     panel.appendChild(header);
 
     const messages = el("div", { class: "w-messages" });
