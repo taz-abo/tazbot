@@ -4,9 +4,9 @@
 
 /* ---------- tokens ---------- */
 :root {
-  --taz-green:       #009682;
-  --taz-green-dark:  #007a6a;
-  --taz-green-light: #e0f5f1;
+  --taz-red:         #e30037;
+  --taz-red-dark:    #b3002b;
+  --taz-red-light:   #fdeef1;
   --surface:         #ffffff;
   --surface-alt:     #f4f6f5;
   --text:            #1a1a1a;
@@ -24,12 +24,12 @@ body {
   background: var(--surface-alt);
   line-height: 1.6;
 }
-a { color: var(--taz-green); text-decoration: none; }
+a { color: var(--taz-red); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 /* ---------- hero ---------- */
 .hero {
-  background: var(--taz-green);
+  background: var(--taz-red);
   color: #fff;
   padding: 3.5rem 1.5rem 3rem;
   text-align: center;
@@ -37,14 +37,10 @@ a:hover { text-decoration: underline; }
 .hero-inner { max-width: 640px; margin: 0 auto; }
 .hero-logo {
   display: inline-block;
-  font-size: 2.4rem;
-  font-weight: 800;
-  letter-spacing: .06em;
-  background: #fff;
-  color: var(--taz-green);
-  padding: .15rem .65rem;
-  border-radius: 4px;
-  margin-bottom: .75rem;
+  width: 200px;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 1rem;
 }
 .hero h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: .5rem; }
 .hero-sub { font-size: 1rem; opacity: .92; }
@@ -82,7 +78,7 @@ a:hover { text-decoration: underline; }
   white-space: pre-wrap;
 }
 .msg.user .msg-bubble {
-  background: var(--taz-green);
+  background: var(--taz-red);
   color: #fff;
   border-bottom-right-radius: 2px;
 }
@@ -133,7 +129,7 @@ a:hover { text-decoration: underline; }
   background: transparent;
 }
 #send-btn {
-  background: var(--taz-green);
+  background: var(--taz-red);
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -144,7 +140,7 @@ a:hover { text-decoration: underline; }
   cursor: pointer;
   transition: background .15s;
 }
-#send-btn:hover { background: var(--taz-green-dark); }
+#send-btn:hover { background: var(--taz-red-dark); }
 #send-btn:disabled { opacity: .5; cursor: not-allowed; }
 
 /* ---------- info grid ---------- */
@@ -163,7 +159,7 @@ a:hover { text-decoration: underline; }
 .info-card h3 {
   font-size: 1rem;
   margin-bottom: .4rem;
-  color: var(--taz-green);
+  color: var(--taz-red);
 }
 .info-card p { font-size: .88rem; color: var(--text-muted); }
 
@@ -179,6 +175,7 @@ a:hover { text-decoration: underline; }
 @media (max-width: 600px) {
   .hero { padding: 2.5rem 1rem 2rem; }
   .hero h1 { font-size: 1.35rem; }
+  .hero-logo { width: 150px; }
   .chat-messages { height: 340px; }
   .msg-bubble { max-width: 90%; }
 }
@@ -194,16 +191,16 @@ a:hover { text-decoration: underline; }
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: var(--taz-green);
+  background: var(--taz-red);
   color: #fff;
   border: none;
-  box-shadow: 0 4px 16px rgba(0,150,130,.35);
+  box-shadow: 0 4px 16px rgba(227,0,55,.35);
   cursor: pointer;
   display: grid;
   place-items: center;
   transition: transform .2s, background .15s;
 }
-#taz-widget-toggle:hover { background: var(--taz-green-dark); transform: scale(1.06); }
+#taz-widget-toggle:hover { background: var(--taz-red-dark); transform: scale(1.06); }
 #taz-widget-toggle svg { width: 26px; height: 26px; }
 
 #taz-widget-panel {
@@ -230,7 +227,7 @@ a:hover { text-decoration: underline; }
   pointer-events: auto;
 }
 #taz-widget-panel .w-header {
-  background: var(--taz-green);
+  background: var(--taz-red);
   color: #fff;
   padding: .75rem 1rem;
   font-weight: 700;
@@ -263,7 +260,7 @@ a:hover { text-decoration: underline; }
   font-size: .88rem;
 }
 #taz-widget-panel .w-send {
-  background: var(--taz-green);
+  background: var(--taz-red);
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -274,7 +271,7 @@ a:hover { text-decoration: underline; }
   cursor: pointer;
   transition: background .15s;
 }
-#taz-widget-panel .w-send:hover { background: var(--taz-green-dark); }
+#taz-widget-panel .w-send:hover { background: var(--taz-red-dark); }
 #taz-widget-panel .w-send:disabled { opacity: .5; cursor: not-allowed; }
 
 @media (max-width: 480px) {
