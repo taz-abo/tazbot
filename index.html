@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>taz Hilfs-Assistent</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <span class="hero-logo">taz</span>
+      <h1>Hilfs-Assistent</h1>
+      <p class="hero-sub">Stelle deine Frage &mdash; der Chatbot antwortet dir auf Basis der
+        offiziellen <a href="https://taz.de/verlag/fragen-und-hilfe/!v=673b67c7-bf6c-44de-9d7d-b86c5a620288/"
+        target="_blank" rel="noopener">taz-Hilfeseite</a>.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="chat-panel">
+      <div id="chat-messages" class="chat-messages">
+        <div class="msg assistant">
+          <div class="msg-bubble">Hallo! Wie kann ich dir helfen?</div>
+        </div>
+      </div>
+
+      <form id="chat-form" class="chat-input-row">
+        <input id="chat-input" type="text" placeholder="Frage an die taz stellen …" autocomplete="off" required>
+        <button type="submit" id="send-btn" aria-label="Absenden">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </form>
+    </section>
+
+    <section class="info-grid">
+      <div class="info-card">
+        <h3>Wie funktioniert es?</h3>
+        <p>Deine Frage wird mit den FAQ-Inhalten der taz abgeglichen. Die drei
+          relevantesten Antworten werden als Kontext an ein lokales Sprachmodell
+          gesendet &mdash; ohne Cloud-Dienste.</p>
+      </div>
+      <div class="info-card">
+        <h3>Datenschutz</h3>
+        <p>Alle Daten bleiben auf dem Server. Es werden keine Informationen an
+          Dritte weitergegeben. Das Sprachmodell (llama3.1) läuft lokal via Ollama.</p>
+      </div>
+      <div class="info-card">
+        <h3>Open Source</h3>
+        <p>Der gesamte Stack &mdash; Scraping, Embeddings, Vektordatenbank und
+          Chat-Oberfläche &mdash; ist frei zugänglich und selbst hostbar.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Nicht offiziell. Ein Open-Source-Projekt auf Basis der
+      <a href="https://taz.de/verlag/fragen-und-hilfe/" target="_blank" rel="noopener">taz-Hilfeseite</a>.</p>
+  </footer>
+
+  <!--
+    data-backend: URL des FastAPI-Servers (ohne Slash am Ende).
+    Für lokale Nutzung:  http://localhost:8000
+    Für Produktivbetrieb: https://dein-server.example.com:8000
+  -->
+  <script src="widget.js" data-backend="http://localhost:8000"></script>
+</body>
+</html>
