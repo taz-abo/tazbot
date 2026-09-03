@@ -52,26 +52,35 @@
             <code>bge-m3</code> in einen Zahlenvektor umgewandelt.</li>
           <li><strong>Suchen</strong>: Der Vektor wird gegen eine Vektordatenbank
             (Cloudflare Vectorize) abgeglichen, die die gechunkten FAQ-Inhalte der
-            taz-Hilfeseite enthält. Ein <strong>Reranker</strong> (<code>bge-reranker</code>)
-            sortiert die relevantesten Passagen auf Rang.</li>
+            taz-Hilfeseiten enthält. Zusätzlich werden passende FAQ-Fragen per
+            Schlagwort-Abgleich und eine Websuche als Nebenspur berücksichtigt.
+            Ein <strong>Reranker</strong> (<code>bge-reranker</code>) sortiert die
+            relevantesten Passagen auf Rang.</li>
           <li><strong>Generieren</strong>: Das Sprachmodell <code>Llama 3.2</code>
             (3B-Instruct) formuliert aus diesem Kontext die Antwort &mdash; ohne
             etwas zu erfinden.</li>
         </ul>
-        <p>So liefert der Bot stets belegte Antworten mit Quellenangabe.</p>
+        <p>Die Antwort wird mit Links zu den jeweiligen taz-Seiten angezeigt. Für
+          Folgefragen wird der bisherige Chat-Verlauf mitgesendet, damit sich der Bot
+          auf vorherige Antworten beziehen kann.</p>
       </div>
       <div class="info-card">
         <h3>Datenschutz</h3>
-        <p>Das gesamte Backend läuft auf der <strong>Cloudflare-Plattform</strong>
-          (Workers, Workers AI, Vectorize, KV). Die taz-Hilfeseite wird einmalig
-          „gechunked&ldquo; und als Vektoren gespeichert.</p>
+        <p>Das Backend läuft auf der <strong>Cloudflare-Plattform</strong>
+          (Workers, Workers AI, Vectorize, KV). Die taz-Hilfeseiten werden
+          automatisch durchgearbeitet: Ein Crawler tastet sich über die
+          <code>/abo/</code>-Unterseiten und speichert den Inhalt gechunked als
+          Vektoren.</p>
         <ul>
-          <li>Deine Frage wird nur an die <strong>Cloudflare-Infrastruktur</strong>
-            gesendet &mdash; es ist kein weiterer Drittanbieter beteiligt.</li>
-          <li>Fragen und Antworten werden <strong>nicht protokolliert oder gespeichert.</strong></li>
+          <li>Deine Frage wird an die <strong>Cloudflare-Infrastruktur</strong>
+            gesendet. Zusätzlich kann eine <strong>Websuche über eine externe
+            SearXNG-Instanz</strong> (<code>search.inetol.net</code>) zur Ergänzung
+            der Antwort hinzugezogen werden.</li>
+          <li>Der Chat-Verlauf wird nur für die Dauer der Antwort an das Backend
+            übermittelt und <strong>nicht dauerhaft gespeichert oder protokolliert.</strong></li>
           <li>Es werden <strong>keine Beispiele</strong> an Dritte (z.&nbsp;B. Trainingsdaten-Plattformen) weitergegeben.</li>
         </ul>
-        <p>Alle Modelle laufen direkt in der Cloudflare-Kante.</p>
+        <p>Die Modelle laufen direkt in der Cloudflare-Kante.</p>
       </div>
       <div class="info-card">
         <h3>Open Source</h3>
@@ -83,12 +92,12 @@
           <li><strong>LLM</strong> &mdash; Meta <code>Llama 3.2 3B</code> (Open Weights)</li>
           <li><strong>Reranker</strong> &mdash; <code>BAAI bge-reranker-base</code></li>
           <li><strong>Frontend</strong> &mdash; statisches HTML/JS, gehostet auf GitHub Pages</li>
+          <li><strong>Websuche</strong> &mdash; über eine SearXNG-Instanz (selbst hostbar)</li>
         </ul>
         <p>Alle Komponenten sind offene Standards &mdash; nichts Blackbox:</p>
         <ul>
-          <li>Zero-Trust-Deployment auf Cloudflare</li>
+          <li>Deployment auf Cloudflare</li>
           <li>Standard-API: Worker + AI + Vectorize</li>
-          <li>Exportierbare &amp; auditierbare Prompt-Kette</li>
         </ul>
       </div>
     </section>
@@ -98,7 +107,7 @@
     <p><span class="footer-beta">Beta-Version.</span> Nicht offiziell. Ein Open-Source-Projekt auf Basis der
       <a href="https://taz.de/verlag/fragen-und-hilfe/" target="_blank" rel="noopener">taz-Hilfeseite</a>.</p>
     <p>Konzept &amp; Umsetzung: <strong>Levi Okur</strong> (<a href="mailto:okur@taz.de">okur@taz.de</a>) &middot;
-      <a href="https://github.com/taz-abo/tazbot" target="_blank" rel="noopener">Quellcode auf GitHub</a></p>
+      <a href="https://github.com/taz-abo/taz-hilfe-assistent" target="_blank" rel="noopener">Quellcode auf GitHub</a></p>
     <p>Gebaut mit <a href="https://opencode.ai" target="_blank" rel="noopener">opencode</a> &amp; <strong>big-pickle</strong>.</p>
   </footer>
 
