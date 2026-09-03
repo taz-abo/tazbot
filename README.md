@@ -8,7 +8,7 @@ gehostet auf GitHub Pages. Das Backend läuft als **Cloudflare Worker**
 
 ## Live
 
-**https://taz-abo.github.io/taz-hilfe-assistent/**
+**https://taz-abo.github.io/tazbot/**
 
 Backend-Worker: `https://taz-backend.okur-230.workers.dev`
 
@@ -17,8 +17,8 @@ Backend-Worker: `https://taz-backend.okur-230.workers.dev`
 Auf jeder beliebigen HTML-Seite:
 
 ```html
-<link rel="stylesheet" href="https://taz-abo.github.io/taz-hilfe-assistent/style.css">
-<script src="https://taz-abo.github.io/taz-hilfe-assistent/widget.js"
+<link rel="stylesheet" href="https://taz-abo.github.io/tazbot/style.css">
+<script src="https://taz-abo.github.io/tazbot/widget.js"
         data-backend="https://taz-backend.okur-230.workers.dev"></script>
 ```
 
