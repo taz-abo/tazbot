@@ -13,6 +13,9 @@
   --text-muted:      #6a5a5c;
   --radius:          10px;
   --shadow:          0 2px 12px rgba(0,0,0,.08);
+  --form-green:      #1f8f5d;
+  --form-green-dark: #166b46;
+  --form-green-bg:   #e8f5ee;
 }
 
 /* ---------- reset ---------- */
@@ -161,22 +164,31 @@ a:hover { text-decoration: underline; }
   color: var(--taz-red-dark);
 }
 
+/* separate subdued "form/other page" bubble */
+.msg.form {
+  display: flex;
+  margin-top: .45rem;
+}
+.msg-bubble.form {
+  padding: 0;
+  background: var(--form-green-bg);
+  border: 1px solid #cfe7db;
+  border-radius: 8px;
+  overflow: hidden;
+}
 .w-form-link {
   display: inline-flex;
   align-items: center;
-  margin-top: .55rem;
+  gap: .45rem;
   padding: .5rem .85rem;
-  background: var(--taz-red);
-  color: #fff;
-  border-radius: 8px;
+  color: var(--form-green-dark);
   font-size: .85rem;
   font-weight: 600;
   text-decoration: none;
   transition: background .15s ease;
 }
-.w-form-link:hover {
-  background: var(--taz-red-dark);
-}
+.w-form-link:hover { background: #d9efe4; }
+.w-form-icon { font-size: 1.05em; line-height: 1; }
 
 /* ---------- input row ---------- */
 .chat-input-row {
