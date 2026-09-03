@@ -31,17 +31,17 @@ a:hover { text-decoration: underline; }
 .hero {
   background: var(--taz-red);
   color: #fff;
-  padding: 3.5rem 1.5rem 3rem;
+  padding: 2rem 1.5rem 1.5rem;
   text-align: center;
 }
 .hero-inner { max-width: 640px; margin: 0 auto; }
 .hero-logo {
   display: block;
-  margin: 0 auto .9rem;
-  width: 160px;
+  margin: 0 auto .6rem;
+  width: 140px;
   height: auto;
 }
-.hero h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: .5rem; }
+.hero h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: .25rem; }
 .hero-title-row {
   display: flex;
   align-items: center;
@@ -75,19 +75,19 @@ a:hover { text-decoration: underline; }
 .hero-sub { font-size: 1rem; opacity: .92; }
 .hero-sub a { color: #fff; text-decoration: underline; }
 .hero-byline {
-  margin-top: 1rem;
-  font-size: .95rem;
+  margin-top: .6rem;
+  font-size: .9rem;
   opacity: .95;
   background: rgba(255,255,255,.14);
   display: inline-block;
-  padding: .4rem .9rem;
+  padding: .35rem .85rem;
   border-radius: 999px;
 }
 .hero-byline a { color: #fff; text-decoration: underline; }
 .hero-byline strong { font-weight: 700; }
 
 /* ---------- container ---------- */
-.container { max-width: 720px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+.container { max-width: 720px; margin: 0 auto; padding: 1rem 1rem 2rem; }
 
 /* ---------- chat panel ---------- */
 .chat-panel {
@@ -99,12 +99,12 @@ a:hover { text-decoration: underline; }
   flex-direction: column;
 }
 .chat-messages {
-  height: 420px;
+  height: 300px;
   overflow-y: auto;
-  padding: 1.25rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  gap: .75rem;
+  gap: .5rem;
 }
 .msg { display: flex; }
 .msg.user { justify-content: flex-end; }
@@ -233,9 +233,9 @@ a:hover { text-decoration: underline; }
   .info-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
-  .hero { padding: 2.5rem 1rem 2rem; }
+  .hero { padding: 1.5rem 1rem 1.25rem; }
   .hero h1 { font-size: 1.35rem; }
-  .chat-messages { height: 340px; }
+  .chat-messages { height: 280px; }
   .msg-bubble { max-width: 90%; }
 }
 
