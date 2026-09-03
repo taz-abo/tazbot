@@ -83,6 +83,25 @@
     return bubble;
   }
 
+  // Collect the prior user/assistant turns from the message list so the backend
+  // can answer follow-up questions that refer to earlier answers.
+  function collectHistory(messagesEl) {
+    const history = [];
+    for (const wrapper of messagesEl.children) {
+      const isUser = wrapper.classList.contains("user");
+      const isAssistant = wrapper.classList.contains("assistant");
+      const isForm = wrapper.classList.contains("form");
+      if (!isUser && !isAssistant) continue;
+      if (isForm) continue;
+      const bubble = wrapper.querySelector(".msg-bubble");
+      if (!bubble) continue;
+      const text = bubble.textContent.trim();
+      if (!text || text === "Suche …") continue;
+      history.push({ role: isUser ? "user" : "assistant", content: text });
+    }
+    return history;
+  }
+
   async function send(question, messagesEl, inputEl, sendBtn) {
     if (!question.trim()) return;
     inputEl.value = "";
@@ -95,7 +114,7 @@
       const res  = await fetch(BACKEND + "/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ question, history: collectHistory(messagesEl) }),
       });
       const data = await res.json();
       typing.classList.remove("typing");
