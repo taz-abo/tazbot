@@ -52,16 +52,23 @@
     return det;
   }
 
-  // Prominent action link (form/action page) shown under the answer.
-  function renderFormLink(formLink) {
+  // Separate, subdued bubble shown below the answer for a form/action page.
+  // Label differs for forms ("Formular öffnen") vs. generic pages.
+  function renderFormLink(formLink, isForm) {
     if (!formLink) return null;
-    const a = document.createElement("a");
-    a.className = "w-form-link";
-    a.href = formLink;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    a.textContent = "Zur passenden Seite öffnen";
-    return a;
+    const wrapper = el("div", { class: "msg form" });
+    const bubble  = el("div", { class: "msg-bubble form" });
+    const link = document.createElement("a");
+    link.className = "w-form-link";
+    link.href = formLink;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    const arrow = el("span", { class: "w-form-icon", "aria-hidden": "true" }, "↗");
+    link.appendChild(arrow);
+    link.appendChild(document.createTextNode(" " + (isForm ? "Formular öffnen" : "Zur anderen Seite öffnen")));
+    bubble.appendChild(link);
+    wrapper.appendChild(bubble);
+    return wrapper;
   }
 
   function addMessage(target, role, text, sources) {
@@ -95,8 +102,8 @@
       typing.textContent = data.answer || "Keine Antwort erhalten.";
       const det = renderSources(data.sources);
       if (det) typing.parentElement.appendChild(det);
-      const fl = renderFormLink(data.formLink);
-      if (fl) typing.parentElement.appendChild(fl);
+      const fl = renderFormLink(data.formLink, data.isForm);
+      if (fl) messagesEl.appendChild(fl);
     } catch (err) {
       typing.classList.remove("typing");
       typing.textContent = "Fehler: " + err.message;
