@@ -65,7 +65,7 @@
     link.rel = "noopener noreferrer";
     const arrow = el("span", { class: "w-form-icon", "aria-hidden": "true" }, "↗");
     link.appendChild(arrow);
-    link.appendChild(document.createTextNode(" " + (isForm ? "Formular öffnen" : "Zur anderen Seite öffnen")));
+    link.appendChild(document.createTextNode(" " + (isForm ? "Formular öffnen" : "Link öffnen")));
     bubble.appendChild(link);
     wrapper.appendChild(bubble);
     return wrapper;
