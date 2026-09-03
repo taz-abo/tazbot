@@ -144,6 +144,7 @@ a:hover { text-decoration: underline; }
   user-select: none;
 }
 .msg-sources .src-item {
+  display: block;
   margin-top: .3rem;
   padding: .4rem .6rem;
   background: var(--surface);
@@ -151,6 +152,30 @@ a:hover { text-decoration: underline; }
   font-size: .78rem;
   line-height: 1.45;
   border: 1px solid #e2e6e4;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color .15s ease;
+}
+.msg-sources .src-item:hover {
+  border-color: var(--taz-red);
+  color: var(--taz-red-dark);
+}
+
+.w-form-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: .55rem;
+  padding: .5rem .85rem;
+  background: var(--taz-red);
+  color: #fff;
+  border-radius: 8px;
+  font-size: .85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background .15s ease;
+}
+.w-form-link:hover {
+  background: var(--taz-red-dark);
 }
 
 /* ---------- input row ---------- */

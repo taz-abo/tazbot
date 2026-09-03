@@ -32,21 +32,45 @@
     return e;
   }
 
+  // Build the "Quellen" details block; each source is a clickable link to its
+  // page (s.quelle) with a short text excerpt.
+  function renderSources(sources) {
+    if (!sources || !sources.length) return null;
+    const det = el("details", { class: "msg-sources" });
+    det.appendChild(el("summary", null, "Quellen (" + sources.length + ")"));
+    sources.forEach(s => {
+      const url = s.quelle || s.url;
+      const title = (s.text || "").slice(0, 140) + ((s.text && s.text.length > 140) ? "…" : "");
+      const item = document.createElement("a");
+      item.className = "src-item";
+      item.href = url;
+      item.target = "_blank";
+      item.rel = "noopener noreferrer";
+      item.textContent = title;
+      det.appendChild(item);
+    });
+    return det;
+  }
+
+  // Prominent action link (form/action page) shown under the answer.
+  function renderFormLink(formLink) {
+    if (!formLink) return null;
+    const a = document.createElement("a");
+    a.className = "w-form-link";
+    a.href = formLink;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.textContent = "Zur passenden Seite öffnen";
+    return a;
+  }
+
   function addMessage(target, role, text, sources) {
     const wrapper = el("div", { class: "msg " + role });
     const bubble  = el("div", { class: "msg-bubble" }, text);
     wrapper.appendChild(bubble);
 
-    if (sources && sources.length) {
-      const det = el("details", { class: "msg-sources" });
-      det.appendChild(el("summary", null, "Quellen (" + sources.length + ")"));
-      sources.forEach(s => {
-        const item = el("div", { class: "src-item" });
-        item.textContent = s.text.slice(0, 160) + (s.text.length > 160 ? "…" : "");
-        det.appendChild(item);
-      });
-      wrapper.appendChild(det);
-    }
+    const det = renderSources(sources);
+    if (det) wrapper.appendChild(det);
     target.appendChild(wrapper);
     target.scrollTop = target.scrollHeight;
     return bubble;
@@ -69,16 +93,10 @@
       const data = await res.json();
       typing.classList.remove("typing");
       typing.textContent = data.answer || "Keine Antwort erhalten.";
-      if (data.sources && data.sources.length) {
-        const det = el("details", { class: "msg-sources" });
-        det.appendChild(el("summary", null, "Quellen (" + data.sources.length + ")"));
-        data.sources.forEach(s => {
-          const item = el("div", { class: "src-item" });
-          item.textContent = s.text.slice(0, 180) + (s.text.length > 180 ? "…" : "");
-          det.appendChild(item);
-        });
-        typing.parentElement.appendChild(det);
-      }
+      const det = renderSources(data.sources);
+      if (det) typing.parentElement.appendChild(det);
+      const fl = renderFormLink(data.formLink);
+      if (fl) typing.parentElement.appendChild(fl);
     } catch (err) {
       typing.classList.remove("typing");
       typing.textContent = "Fehler: " + err.message;
