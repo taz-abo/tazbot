@@ -53,6 +53,11 @@ a:hover { text-decoration: underline; }
   flex-wrap: wrap;
 }
 .hero-title-row h1 { margin-bottom: 0; }
+.hero-robot {
+  display: inline-block;
+  vertical-align: -0.25em;
+  margin-right: .35rem;
+}
 .beta-badge {
   display: inline-block;
   background: #fff;
